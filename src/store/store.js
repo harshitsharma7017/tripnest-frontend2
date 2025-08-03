@@ -1,4 +1,3 @@
-// src/redux/store.js
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
 import cityReducer from './slices/CitySlice'
@@ -8,6 +7,7 @@ import flightReducer from './slices/flightSlice'
 import hotelReducer from './slices/HotelSlice'
 import attractionsReducer from './slices/attractionsSlice'
 import chatbotReducer from './slices/chatbotSlice'
+import TripReducer from './slices/TripSlice'
 
 const store = configureStore({
   reducer: {
@@ -18,7 +18,8 @@ const store = configureStore({
     flight: flightReducer,
     hotel: hotelReducer,
     attractions: attractionsReducer,
-    chatbot: chatbotReducer
+    chatbot: chatbotReducer,
+    trip: TripReducer
   },
 });
 

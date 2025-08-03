@@ -73,7 +73,8 @@ const API = {
 
   getAllAttractions: () => authAxios.get("/attractions"),
   searchAttractions: (params) => authAxios.get("/attractions/city", { params }),
-  sendChatMessage: (message) => authAxios.post("/chatbot/message", {message})
+  sendChatMessage: (message) => authAxios.post("/chatbot/message", {message}),
+  searchTripPackages: (params) => authAxios.get("/trips", {params})
 };
 
 export default API;
