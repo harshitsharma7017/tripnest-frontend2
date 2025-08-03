@@ -1,8 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
-
+const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api`
 // Public axios instance
 const publicAxios = axios.create({
   baseURL: API_BASE_URL,
