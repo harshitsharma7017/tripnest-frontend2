@@ -38,11 +38,11 @@ const TripSlice = createSlice({
         state.loading = false;
         state.trip = action.payload;
         state.success = true;
-        state.message = "Hotels loaded";
+        state.message = "Trips loaded";
       })
       .addCase(searchTripPackages.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch hotels";
+        state.error = action.payload || "Failed to fetch Trips";
       });
   },
 });

@@ -1,4 +1,3 @@
-// src/pages/Login.jsx
 import { useState, useEffect } from "react";
 import { Input, Button, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,49 +29,61 @@ export default function Login() {
   }, [error, token, navigate]);
 
   return (
-  <div className="min-h-screen flex items-center justify-center bg-gray-100">
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white p-6 rounded-lg shadow-md w-full max-w-md"
-    >
-      <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-
-      {error && (
-        <div className="mb-4 text-red-500 text-sm text-center">
-          {error === "Request failed with status code 401"
-            ? "Invalid email or password"
-            : error}
-        </div>
-      )}
-
-      <div className="mb-4">
-        <Input
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="mb-4">
-        <Input.Password
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-      </div>
-
-      <Button
-        type="primary"
-        htmlType="submit"
-        block
-        disabled={loading}
-        icon={loading && <Spin size="small" />}
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded-lg shadow-md w-full max-w-md"
       >
-        {loading ? "Logging in..." : "Login"}
-      </Button>
-    </form>
-  </div>
-)
+        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+
+        {error && (
+          <div className="mb-4 text-red-500 text-sm text-center">
+            {error === "Request failed with status code 401"
+              ? "Invalid email or password"
+              : error}
+          </div>
+        )}
+
+        <div className="mb-4">
+          <Input
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="mb-4">
+          <Input.Password
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </div>
+
+        <Button
+          type="primary"
+          htmlType="submit"
+          block
+          disabled={loading}
+          icon={loading && <Spin size="small" />}
+        >
+          {loading ? "Logging in..." : "Login"}
+        </Button>
+
+        {/* Register Button */}
+        <div className="text-center mt-4">
+          <span className="text-gray-600">Don't have an account? </span>
+          <button
+            type="button"
+            onClick={() => navigate("/register")}
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }

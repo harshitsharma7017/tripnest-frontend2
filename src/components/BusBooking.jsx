@@ -105,7 +105,6 @@ const BusBooking = ({ cities = [] }) => {
                 size="large"
                 onClick={() => {
                   form.resetFields();
-                  // Optionally dispatch an action to reset search state
                 }}
               >
                 Search Again
@@ -115,13 +114,12 @@ const BusBooking = ({ cities = [] }) => {
         </div>
       );
     }
-
-    // Don't show anything if no search has been performed yet
     return null;
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto shadow-lg">
+    <div className='ml-8 flex items-center justify-center'>
+    <Card className="w-full max-w-6xl mx-auto shadow-lg">
       <div className="flex items-center mb-4">
         <Bus className="h-6 w-6 text-primary mr-2" />
         <h3 className="text-lg font-semibold">Book Bus Tickets</h3>
@@ -130,7 +128,7 @@ const BusBooking = ({ cities = [] }) => {
       <Form form={form} onFinish={handleSearch} layout="vertical">
         <Row gutter={16}>
           {/* From */}
-          <Col xs={24} md={10}>
+          <Col xs={24} md={8}>
             <Form.Item
               label="From"
               name="from"
@@ -168,7 +166,7 @@ const BusBooking = ({ cities = [] }) => {
           </Col>
 
           {/* To */}
-          <Col xs={24} md={10}>
+          <Col xs={24} md={8}>
             <Form.Item
               label="To"
               name="to"
@@ -196,7 +194,7 @@ const BusBooking = ({ cities = [] }) => {
               rules={[{ required: true, message: 'Please select date' }]}
             >
               <DatePicker 
-                className="w-full" 
+                className="w-full min-w-[150px]" 
                 disabledDate={(current) => current && current < dayjs().startOf('day')}
               />
             </Form.Item>
@@ -254,6 +252,7 @@ const BusBooking = ({ cities = [] }) => {
       {/* Results Section */}
       {renderBusResults()}
     </Card>
+    </div>
   );
 };
 

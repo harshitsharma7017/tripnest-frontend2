@@ -1,4 +1,3 @@
-// src/components/ChatBotWidget.jsx
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { addUserMessage, fetchBotResponse } from "../store/slices/chatbotSlice";
@@ -119,20 +118,18 @@ const ChatBotWidget = () => {
 
     {/* If bot response has data (flights), show it nicely */}
     {msg.sender === "bot" && msg.data && Array.isArray(msg.data) && (
-  <div className="mt-2 space-y-2">
-    {msg.sender === "bot" && Array.isArray(msg.data) && (
-  <div className="mt-2 space-y-2">
-    {msg.data.map((item, i) => (
-      <div key={i}>{renderBotCard(item)}</div>
-    ))}
-  </div>
-)}
-  </div>
-)}
-
-  </div>
-))}
-
+        <div className="mt-2 space-y-2">
+          {msg.sender === "bot" && Array.isArray(msg.data) && (
+            <div className="mt-2 space-y-2">
+              {msg.data.map((item, i) => (
+                <div key={i}>{renderBotCard(item)}</div>
+              ))}
+            </div>
+          )}
+        </div>
+          )}
+      </div>
+      ))}
           </div>
           <div className="flex gap-2 pt-2 border-t mt-2 mb-4">
             <Input

@@ -1,4 +1,3 @@
-// components/AttractionList.jsx
 import { useSelector } from "react-redux";
 
 const AttractionList = () => {

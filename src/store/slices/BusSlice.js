@@ -32,7 +32,7 @@ const busSlice = createSlice({
   name: "bus",
   initialState: {
     bus: [],
-    selectedFlight: null,
+    selectedBus: null,
     loading: false,
     success: false,
     message: "",
@@ -40,7 +40,7 @@ const busSlice = createSlice({
   },
   reducers: {
     clearSelectedBus: (state) => {
-      state.selectedFlight = null;
+      state.selectedBus = null;
     },
     clearBusMessage: (state) => {
       state.message = "";
@@ -49,6 +49,7 @@ const busSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // fetchAllBuses
       .addCase(fetchAllBuses.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -64,19 +65,36 @@ const busSlice = createSlice({
         state.loading = false;
       })
 
+      // fetchBusById
+      .addCase(fetchBusById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(fetchBusById.fulfilled, (state, action) => {
         state.selectedBus = action.payload.data;
         state.success = action.payload.success;
         state.message = action.payload.message;
+        state.loading = false;
       })
       .addCase(fetchBusById.rejected, (state, action) => {
         state.error = action.payload;
+        state.loading = false;
       })
 
+      // searchBuses
+      .addCase(searchBuses.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(searchBuses.fulfilled, (state, action) => {
         state.bus = action.payload;
         state.success = action.payload.success;
         state.message = action.payload.message;
+        state.loading = false;
+      })
+      .addCase(searchBuses.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
       });
   },
 });

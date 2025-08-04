@@ -19,7 +19,6 @@ export const searchAttractions = createAsyncThunk("attractions/search", async (p
   }
 });
 
-
 const attractionsSlice = createSlice({
   name: "attractions",
   initialState: {
@@ -32,7 +31,7 @@ const attractionsSlice = createSlice({
   },
   reducers: {
     clearSelectedAttractions: (state) => {
-      state.selectedAttraction= null;
+      state.selectedAttraction = null;
     },
     clearAttractionsMessage: (state) => {
       state.message = "";
@@ -41,6 +40,7 @@ const attractionsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Fetch All Attractions
       .addCase(fetchAllAttractions.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -55,11 +55,22 @@ const attractionsSlice = createSlice({
         state.error = action.payload;
         state.loading = false;
       })
+
+      // Search Attractions
+      .addCase(searchAttractions.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(searchAttractions.fulfilled, (state, action) => {
-              state.attractions = action.payload;
-              state.success = action.payload.success;
-              state.message = action.payload.message;
-            });
+        state.attractions = action.payload;
+        state.success = action.payload.success;
+        state.message = action.payload.message;
+        state.loading = false;
+      })
+      .addCase(searchAttractions.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      });
   },
 });
 

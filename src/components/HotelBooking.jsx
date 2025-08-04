@@ -25,6 +25,7 @@ const HotelBooking = ({ cities = [] }) => {
 
 
   return (
+    <div className='ml-8 flex items-center justify-center'>
     <Card className="w-full max-w-4xl mx-auto shadow-lg">
       <div className="flex items-center mb-4">
         <Building2 className="h-6 w-6 text-primary mr-2" />
@@ -74,48 +75,55 @@ const HotelBooking = ({ cities = [] }) => {
       </Form>
 
       {/* Results */}
-      <div className="mt-8">
+      <div className="mt-8 space-y-6">
   {loading ? (
     <Spin />
   ) : hotels.length > 0 ? (
-    hotels.map(hotel => (
-      <Card key={hotel._id} className="mb-6">
-        <Row gutter={16}>
-          <Col xs={24} md={8}>
-            <img
-              src={hotel.images?.[0]}
-              alt={hotel.name}
-              className="w-full h-48 object-cover rounded"
-            />
-          </Col>
-          <Col xs={24} md={16}>
-            <h4 className="text-xl font-bold mb-2">{hotel.name}</h4>
-            <p className="text-gray-600 mb-1">
-              {hotel.city?.name}, {hotel.city?.state}
-            </p>
-            <p className="text-gray-700 mb-2">{hotel.description}</p>
-            <p className="text-sm text-gray-500 mb-1">Rating: ⭐ {hotel.rating}</p>
-            <p className="text-sm text-gray-500 mb-1">Price: ₹{hotel.pricePerNight.toLocaleString()} / night</p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {hotel.amenities.map((amenity, index) => (
-                <span
-                  key={index}
-                  className="bg-gray-100 text-sm px-2 py-1 rounded-full border"
-                >
-                  {amenity}
-                </span>
-              ))}
-            </div>
-          </Col>
-        </Row>
-      </Card>
+    hotels.map((hotel) => (
+      <div
+        key={hotel._id}
+        className="bg-white border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row gap-4"
+      >
+        <div className="md:w-1/3 w-full">
+          <img
+            src={hotel.images?.[0]}
+            alt={hotel.name}
+            className="w-full h-48 object-cover rounded-md"
+          />
+        </div>
+
+        <div className="flex-1">
+          <div className="mb-2 flex items-center justify-between">
+            <h4 className="text-lg font-semibold text-gray-600 ml-40">{hotel.name}</h4>
+            <span className="text-sm text-gray-500">⭐ {hotel.rating}</span>
+          </div>
+          <p className="text-gray-600 mb-1">
+            {hotel.city?.name}, {hotel.city?.state}
+          </p>
+          <p className="text-gray-700 mb-2 mt-2">{hotel.description}</p>
+          <p className="text-sm mb-1 text-green-600 mt-4">
+            Price: ₹{hotel.pricePerNight.toLocaleString()} / night
+          </p>
+
+          <div className="mt-2 flex flex-wrap gap-2 ml-28">
+            {hotel.amenities?.map((amenity, index) => (
+              <span
+                key={index}
+                className="bg-gray-100 text-sm px-2 py-1 rounded-full border"
+              >
+                {amenity}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
     ))
   ) : (
     <p className="text-gray-500">No hotels found.</p>
   )}
 </div>
-
     </Card>
+    </div>
   );
 };
 

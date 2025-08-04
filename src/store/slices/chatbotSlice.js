@@ -5,12 +5,12 @@ export const fetchBotResponse = createAsyncThunk(
   "chatbot/fetchBotResponse",
   async (userMessage, thunkAPI) => {
     try {
-      const res = await API.sendChatMessage(userMessage); // your API call
+      const res = await API.sendChatMessage(userMessage);
       return {
         text: res.data.reply,
         sender: "bot",
-        data: res.data.data || [], // 👈 Add this
-        }; // assuming res.data = { text: "Bot reply" }
+        data: res.data.data || [],
+      };
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data?.message || "Bot error");
     }
@@ -20,7 +20,7 @@ export const fetchBotResponse = createAsyncThunk(
 const chatbotSlice = createSlice({
   name: "chatbot",
   initialState: {
-    messages: [], // { sender: "user" | "bot", text: string }
+    messages: [],
     loading: false,
     error: null,
   },

@@ -1,21 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { 
-  Home,
-  Plane,
-  Hotel,
-  Train,
-  Bus,
-  Calendar,
   Heart,
   User,
-  CreditCard,
-  Gift,
-  Settings,
-  HelpCircle,
-  Star,
-  ChevronLeft,
-  ChevronRight,
   MapPin,
   Bell,
   ShoppingBag,
@@ -42,7 +29,7 @@ const Layout = ({ children }) => {
 
   const handleSearch = () => {
     if (!searchTerm.trim()) {
-      setShowAttractions(false); // Show the main page
+      setShowAttractions(false);
       return;
     }
     dispatch(searchAttractions({ city: searchTerm }));
@@ -76,26 +63,26 @@ const Layout = ({ children }) => {
 
             {/* Search Bar */}
             <div className="flex-1 flex justify-center">
-<input
-  type="text"
-  value={searchTerm}
-  onChange={(e) => {
-    setSearchTerm(e.target.value);
-    if (!e.target.value.trim()) {
-      setShowAttractions(false); // Return to default view when cleared
-    }
-  }}
-  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-  placeholder="Search destinations, trips, etc."
-  className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-/>
-  <button
-    onClick={handleSearch}
-    className="ml-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-  >
-    Search
-  </button>
-</div>
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  if (!e.target.value.trim()) {
+                    setShowAttractions(false);
+                  }
+                }}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                placeholder="Search destinations, trips, etc."
+                className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+                <button
+                  onClick={handleSearch}
+                  className="ml-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                >
+                  Search
+                </button>
+              </div>
             {/* Actions */}
             <div className="flex items-center space-x-3">
               <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">

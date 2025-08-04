@@ -1,14 +1,15 @@
-// src/pages/Register.jsx
 import { useState, useEffect } from "react";
 import { Input, Button, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../store/slices/authSlice";
+import { registerUser, resetAuthState } from "../store/slices/authSlice";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const dispatch = useDispatch();
-  const { loading, error, token } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
+  const { loading, error, success } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,8 +26,12 @@ export default function Register() {
 
   useEffect(() => {
     if (error) toast.error(error);
-    if (token) toast.success("Registration successful!");
-  }, [error, token]);
+    if (success) {
+      toast.success("Registration successful! Please login.");
+      dispatch(resetAuthState());
+      navigate("/login");
+    }
+  }, [error, success, navigate, dispatch]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -39,7 +44,7 @@ export default function Register() {
         <div className="mb-4">
           <Input
             name="name"
-            placeholder="Name"
+            placeholder="Full Name"
             value={formData.name}
             onChange={handleChange}
           />
@@ -72,6 +77,17 @@ export default function Register() {
         >
           {loading ? "Registering..." : "Register"}
         </Button>
+
+        <div className="mt-4 text-center">
+          <span className="text-gray-600">Already have an account? </span>
+          <button
+            type="button"
+            onClick={() => navigate("/login")}
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Login
+          </button>
+        </div>
       </form>
     </div>
   );

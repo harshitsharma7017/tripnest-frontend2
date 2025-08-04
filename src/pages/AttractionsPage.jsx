@@ -11,23 +11,20 @@ const AttractionsPage = () => {
   
   const [selectedCity, setSelectedCity] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
+  const [viewMode, setViewMode] = useState('grid');
   const [citySearchTerm, setCitySearchTerm] = useState('');
   const [showCityDropdown, setShowCityDropdown] = useState(false);
 
-  // Fetch attractions and cities on component mount
   useEffect(() => {
     dispatch(fetchAllAttractions());
     dispatch(fetchAllCities());
     
-    // Clear messages on unmount
     return () => {
       dispatch(clearAttractionsMessage());
       dispatch(clearCityMessage());
     };
   }, [dispatch]);
 
-  // Effect to search attractions when city or search term changes
   useEffect(() => {
     const searchParams = {};
     
@@ -39,7 +36,6 @@ const AttractionsPage = () => {
       searchParams.search = searchTerm;
     }
     
-    // If we have search parameters, use searchAttractions, otherwise fetch all
     if (selectedCity || searchTerm) {
       dispatch(searchAttractions(searchParams));
     } else {
@@ -47,14 +43,12 @@ const AttractionsPage = () => {
     }
   }, [selectedCity, searchTerm, dispatch]);
 
-  // Get cities data array (handle both direct array and nested data structure)
   const cities = useMemo(() => {
     if (Array.isArray(citiesData)) return citiesData;
     if (citiesData?.data) return citiesData.data;
     return [];
   }, [citiesData]);
 
-  // Filter cities based on search term
   const filteredCities = useMemo(() => {
     if (!citySearchTerm) return cities;
     return cities.filter(city => 
@@ -63,18 +57,14 @@ const AttractionsPage = () => {
     );
   }, [cities, citySearchTerm]);
 
-  // Get attractions data array (handle both direct array and nested data structure)
   const attractionsData = useMemo(() => {
     if (Array.isArray(attractions)) return attractions;
     if (attractions?.data) return attractions.data;
     return [];
   }, [attractions]);
 
-  // Since we're now using the search thunk for filtering, we don't need client-side filtering
-  // The API should handle the filtering based on the search parameters
   const filteredAttractions = attractionsData;
 
-  // Group attractions by city for statistics
   const attractionsByCity = useMemo(() => {
     const grouped = {};
     attractionsData.forEach(attraction => {
